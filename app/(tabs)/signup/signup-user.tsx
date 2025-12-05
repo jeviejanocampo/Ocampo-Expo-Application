@@ -4,11 +4,9 @@ import { useState } from 'react';
 import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { loginStyles as styles } from '../../lib/styles/login-design';
 import { supabase } from '../../lib/supabase-client';
+import { RootStackParamList } from '@/app/lib/types';
 
-type RootStackParamList = {
-  Home: undefined;
-  SignupUser: undefined;
-};
+
 
 export default function SignupUser() {
   const [email, setEmail] = useState('');
@@ -36,7 +34,7 @@ export default function SignupUser() {
       Alert.alert('Signup failed', error.message);
     } else {
       Alert.alert('Success', 'Account created! Please check your email.');
-      navigation.goBack(); // go back to login
+      navigation.goBack(); 
     }
   };
 

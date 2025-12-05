@@ -9,17 +9,35 @@ export default function Home() {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const { data, error } = await supabase.auth.getUser();
+      const { data } = await supabase.auth.getUser();
+
       if (data.user) {
         setUserEmail(data.user.email || null);
+      } else {
+        // If not logged in, redirect to login
+        router.replace('/(tabs)/login/login-user');
       }
     };
+
     fetchUser();
+
+    // Optional: listen for auth changes
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        if (!session) {
+          router.replace('/(tabs)/login/login-user');
+        }
+      }
+    );
+
+    return () => {
+      listener.subscription.unsubscribe();
+    };
   }, []);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    router.replace('/home/login-user');
+    // router.replace will also be triggered by auth listener
   };
 
   return (
