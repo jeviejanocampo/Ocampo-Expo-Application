@@ -2,22 +2,22 @@ import { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StatusBar } from 'react-native';
 import { useRouter } from 'expo-router';
 import { supabase } from '../../lib/supabase-client';
-import dayjs from 'dayjs'; 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '@/app/lib/styles/home-design';
 
 export default function Home() {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false); // Track if user is logged in
-  const defaultCardId = 21; // dynamic default value
-
+  const [defaultCardId, setDefaultCardId] = useState<string | null>(null); // Will hold the Supabase UID
 
   useEffect(() => {
     const fetchUser = async () => {
       const { data } = await supabase.auth.getUser();
 
       if (data.user) {
-        setIsActive(true); // Session active
+        console.log("USER UID:", data.user.id); // Console log UID
+        setDefaultCardId(data.user.id);         // Set UID to state
+        setIsActive(true);
       } else {
         setIsActive(false);
         router.replace('/(tabs)/login/login-user');
@@ -40,9 +40,17 @@ export default function Home() {
     await supabase.auth.signOut();
   };
 
+  // If UID not loaded yet, show loading
+  if (!defaultCardId) {
+    return (
+      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Loading...</Text>
+      </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-
       <StatusBar barStyle="dark-content" backgroundColor="white" />
 
       <View style={styles.headerContainer}>
@@ -60,17 +68,15 @@ export default function Home() {
         <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
           <Text style={styles.logoutText}>Logout?</Text>
         </TouchableOpacity>
-
       </View>
-      
-      <View style={styles.container}>
 
+      <View style={styles.container}>
         <TouchableOpacity
           style={styles.card}
           onPress={() =>
             router.push({
               pathname: '/(tabs)/note/view-note',
-              params: { id: defaultCardId.toString() }, 
+              params: { id: defaultCardId }, // Pass UID dynamically
             })
           }
         >
@@ -79,9 +85,7 @@ export default function Home() {
           <Text style={styles.cardSubtext}>This is the subtext for card 1.</Text>
           <Text style={styles.cardTimestamp}>{new Date().toLocaleString()}</Text>
         </TouchableOpacity>
-
       </View>
-
     </SafeAreaView>
   );
 }
