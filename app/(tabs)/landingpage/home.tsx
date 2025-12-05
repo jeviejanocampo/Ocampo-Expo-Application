@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StatusBar } from 'react-native';
 import { useRouter } from 'expo-router';
 import { supabase } from '../../lib/supabase-client';
+import dayjs from 'dayjs'; 
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { styles } from '@/app/lib/styles/home-design';
 
 export default function Home() {
   const router = useRouter();
@@ -38,55 +40,48 @@ export default function Home() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-      {/* StatusBar */}
+
       <StatusBar barStyle="dark-content" backgroundColor="white" />
 
-      {/* Header */}
-      <View
-        style={{
-          height: 60,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderBottomWidth: 1,
-          borderBottomColor: '#ddd',
-          paddingHorizontal: 16,
-          position: 'relative',
-        }}
-      >
-        {/* Left side: template image + Active */}
-        {isActive && (
-          <View style={{ position: 'absolute', left: 16, flexDirection: 'row', alignItems: 'center' }}>
-            <Image
-              source={require('../../../assets/images/android-icon-monochrome.png')}
-              style={{ width: 24, height: 24, marginRight: 6 }}
-            />
-            <Text style={{ fontSize: 14, fontWeight: '600', color: 'green' }}>Active</Text>
-          </View>
-        )}
-
-        {/* Center: Header title */}
-        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Note App</Text>
-
-        {/* Right side: Logout */}
-        <TouchableOpacity
-          onPress={handleLogout}
-          style={{
-            position: 'absolute',
-            right: 16,
-            padding: 8,
-            backgroundColor: '#FF3B30',
-            borderRadius: 6,
-          }}
-        >
-          <Text style={{ color: 'white', fontSize: 14 }}>Logout?</Text>
-        </TouchableOpacity>
+    <View style={styles.headerContainer}>
+      {isActive && (
+        <View style={styles.leftActiveContainer}>
+          <Image
+            source={require('../../../assets/images/android-icon-monochrome.png')}
+            style={styles.activeImage}
+          />
+          <Text style={styles.activeText}>Active</Text>
+        </View>
+      )}
+      <Text style={styles.headerTitle}>Note App</Text>
+      <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
+        <Text style={styles.logoutText}>Logout?</Text>
+      </TouchableOpacity>
+    </View>
+    
+     <View style={styles.container}>
+      <View style={styles.card}>
+        <Text style={styles.hiddenId}>card-1</Text>
+        <Text style={styles.cardHeader}>Card Header 1</Text>
+        <Text style={styles.cardSubtext}>This is the subtext for card 1.</Text>
+        <Text style={styles.cardTimestamp}>{new Date().toLocaleString()}</Text>
       </View>
 
-      {/* Main Content */}
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ fontSize: 24 }}>{isActive ? 'Session Active' : 'Not Logged In'}</Text>
+      <View style={styles.card}>
+        <Text style={styles.hiddenId}>card-2</Text>
+        <Text style={styles.cardHeader}>Card Header 2</Text>
+        <Text style={styles.cardSubtext}>This is the subtext for card 2.</Text>
+        <Text style={styles.cardTimestamp}>{new Date().toLocaleString()}</Text>
       </View>
+
+      <View style={styles.card}>
+        <Text style={styles.hiddenId}>card-3</Text>
+        <Text style={styles.cardHeader}>Card Header 3</Text>
+        <Text style={styles.cardSubtext}>This is the subtext for card 3.</Text>
+        <Text style={styles.cardTimestamp}>{new Date().toLocaleString()}</Text>
+      </View>
+    </View>
+
     </SafeAreaView>
   );
 }
