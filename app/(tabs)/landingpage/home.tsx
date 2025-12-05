@@ -9,6 +9,8 @@ import { styles } from '@/app/lib/styles/home-design';
 export default function Home() {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false); // Track if user is logged in
+  const defaultCardId = 21; // dynamic default value
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -60,26 +62,24 @@ export default function Home() {
     </View>
     
      <View style={styles.container}>
-      <View style={styles.card}>
-        <Text style={styles.hiddenId}>card-1</Text>
+
+    <TouchableOpacity
+        style={styles.card}
+        onPress={() =>
+          router.push({
+            pathname: '/(tabs)/note/view-note',
+            params: { id: defaultCardId.toString() }, // pass as string
+          })
+        }
+      >
+        <Text style={styles.hiddenId}>{defaultCardId}</Text>
         <Text style={styles.cardHeader}>Card Header 1</Text>
         <Text style={styles.cardSubtext}>This is the subtext for card 1.</Text>
         <Text style={styles.cardTimestamp}>{new Date().toLocaleString()}</Text>
-      </View>
+      </TouchableOpacity>
 
-      <View style={styles.card}>
-        <Text style={styles.hiddenId}>card-2</Text>
-        <Text style={styles.cardHeader}>Card Header 2</Text>
-        <Text style={styles.cardSubtext}>This is the subtext for card 2.</Text>
-        <Text style={styles.cardTimestamp}>{new Date().toLocaleString()}</Text>
-      </View>
 
-      <View style={styles.card}>
-        <Text style={styles.hiddenId}>card-3</Text>
-        <Text style={styles.cardHeader}>Card Header 3</Text>
-        <Text style={styles.cardSubtext}>This is the subtext for card 3.</Text>
-        <Text style={styles.cardTimestamp}>{new Date().toLocaleString()}</Text>
-      </View>
+
     </View>
 
     </SafeAreaView>
