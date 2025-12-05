@@ -1,16 +1,37 @@
-import { useState } from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useRouter } from 'expo-router';
-import { loginStyles as styles } from '../../design/login-design';
+import { useState } from 'react';
+import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { loginStyles as styles } from '../../lib/styles/login-design';
+import { supabase } from '../../lib/supabase-client';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
 
-  const handleLogin = () => {
-    console.log('Email:', email);
-    console.log('Password:', password);
+  const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert('Error', 'Please enter email and password');
+      return;
+    }
+
+    setLoading(true);
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    setLoading(false);
+
+    if (error) {
+      Alert.alert('Login failed', error.message);
+    } else {
+      // Navigate to landing page on successful login
+      router.replace('/landingpage/home');
+    }
   };
 
   return (
@@ -34,8 +55,8 @@ export default function LoginScreen() {
         style={styles.input}
       />
 
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Login</Text>
+      <TouchableOpacity style={styles.button} onPress={handleLogin} disabled={loading}>
+        <Text style={styles.buttonText}>{loading ? 'Logging in...' : 'Login'}</Text>
       </TouchableOpacity>
 
       <View style={styles.signupContainer}>
@@ -43,7 +64,7 @@ export default function LoginScreen() {
           Don't have an account?{' '}
           <Text
             style={styles.signupLink}
-            onPress={() => router.push('/signup/signup-user')} // use path here
+            onPress={() => router.push('/signup/signup-user')}
           >
             Sign Up
           </Text>
