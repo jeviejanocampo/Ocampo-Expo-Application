@@ -45,42 +45,42 @@ export default function Home() {
 
       <StatusBar barStyle="dark-content" backgroundColor="white" />
 
-    <View style={styles.headerContainer}>
-      {isActive && (
-        <View style={styles.leftActiveContainer}>
-          <Image
-            source={require('../../../assets/images/android-icon-monochrome.png')}
-            style={styles.activeImage}
-          />
-          <Text style={styles.activeText}>Active</Text>
-        </View>
-      )}
-      <Text style={styles.headerTitle}>Note App</Text>
-      <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
-        <Text style={styles.logoutText}>Logout?</Text>
-      </TouchableOpacity>
-    </View>
-    
-     <View style={styles.container}>
+      <View style={styles.headerContainer}>
+        {isActive && (
+          <View style={styles.leftActiveContainer}>
+            <Image
+              source={require('../../../assets/images/android-icon-monochrome.png')}
+              style={styles.activeImage}
+            />
+            <Text style={styles.activeText}>Active</Text>
+          </View>
+        )}
+        <Text style={styles.headerTitle}>Note App</Text>
 
-    <TouchableOpacity
-        style={styles.card}
-        onPress={() =>
-          router.push({
-            pathname: '/(tabs)/note/view-note',
-            params: { id: defaultCardId.toString() }, // pass as string
-          })
-        }
-      >
-        <Text style={styles.hiddenId}>{defaultCardId}</Text>
-        <Text style={styles.cardHeader}>Card Header 1</Text>
-        <Text style={styles.cardSubtext}>This is the subtext for card 1.</Text>
-        <Text style={styles.cardTimestamp}>{new Date().toLocaleString()}</Text>
-      </TouchableOpacity>
+        <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
+          <Text style={styles.logoutText}>Logout?</Text>
+        </TouchableOpacity>
 
+      </View>
+      
+      <View style={styles.container}>
 
+        <TouchableOpacity
+          style={styles.card}
+          onPress={() =>
+            router.push({
+              pathname: '/(tabs)/note/view-note',
+              params: { id: defaultCardId.toString() }, 
+            })
+          }
+        >
+          <Text style={styles.hiddenId}>{defaultCardId}</Text>
+          <Text style={styles.cardHeader}>Card Header 1</Text>
+          <Text style={styles.cardSubtext}>This is the subtext for card 1.</Text>
+          <Text style={styles.cardTimestamp}>{new Date().toLocaleString()}</Text>
+        </TouchableOpacity>
 
-    </View>
+      </View>
 
     </SafeAreaView>
   );
