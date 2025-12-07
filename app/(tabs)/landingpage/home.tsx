@@ -60,7 +60,7 @@ export default function Home() {
               source={require('../../../assets/images/android-icon-monochrome.png')}
               style={styles.activeImage}
             />
-            <Text style={styles.activeText}>Active</Text>
+            <Text style={styles.activeText}>Active Now</Text>
           </View>
         )}
         <Text style={styles.headerTitle}>Note App Version 2</Text>
