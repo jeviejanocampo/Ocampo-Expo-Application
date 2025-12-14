@@ -58,7 +58,8 @@ export const styles = StyleSheet.create({
     color: 'green',
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: 16,
+    left: 12,
     fontWeight: 'bold',
   },
   logoutButton: {
