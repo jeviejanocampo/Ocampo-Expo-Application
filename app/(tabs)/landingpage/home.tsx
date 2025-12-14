@@ -60,9 +60,10 @@ export default function Home() {
               source={require('../../../assets/images/android-icon-monochrome.png')}
               style={styles.activeImage}
             />
-            <Text style={styles.activeText}>Active Now</Text>
+            <Text style={styles.activeText}>Active Now n</Text>
           </View>
         )}
+        <Text style={styles.headerTitle}>Note App Version 2 Lol lol</Text>
         <Text style={styles.headerTitle}>Note App Version 2 Lol</Text>
 
         <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
