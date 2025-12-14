@@ -66,7 +66,7 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     right: 16,
     padding: 8,
-    backgroundColor: '#FF3B30',
+    backgroundColor: '#1b0403ff',
     borderRadius: 6,
   },
   logoutText: {

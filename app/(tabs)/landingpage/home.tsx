@@ -65,6 +65,9 @@ export default function Home() {
         )}
         <Text style={styles.headerTitle}>Note App Version 2</Text>
 
+        <Text style={styles.headerTitle}>Note App Version 2</Text>
+
+
         <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
           <Text style={styles.logoutText}>Logout?</Text>
         </TouchableOpacity>
