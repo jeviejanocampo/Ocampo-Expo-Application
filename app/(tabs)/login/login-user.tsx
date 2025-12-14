@@ -36,7 +36,7 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Note Taking App lol Load</Text>
+      <Text style={styles.title}>Note Taking App lol Load sss</Text>
 
       <TextInput
         placeholder="Email"
